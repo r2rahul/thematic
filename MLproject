@@ -1,0 +1,9 @@
+name: thematic-example
+conda_env: conda.yaml
+entry_points:
+  main:
+    parameters:
+      inverse_method: {type: str, default: 'pinv'}
+    command: |
+        python py/thematic_main.py \
+          --inverse-method={inverse_method}

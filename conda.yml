@@ -1,0 +1,12 @@
+name: thematic-example
+channels:
+  - conda-forge
+  - default
+dependencies:
+  - python=3.7
+  - pip
+  - pip:
+      - mlflow>=1.6.0
+      - statsmodels==0.11.1
+      - scikit-learn==0.22.1
+      
