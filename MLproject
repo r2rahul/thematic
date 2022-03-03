@@ -5,5 +5,5 @@ entry_points:
     parameters:
       inverse_method: {type: str, default: 'pinv'}
     command: |
-        python py/thematic_main.py \
+        python thematic_main.py \
           --inverse-method={inverse_method}
