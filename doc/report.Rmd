@@ -1,0 +1,26 @@
+---
+title: "Finding Stock Cohorts by applying text clustering on Business Descriptions of securities"
+description: |
+  This article looks at finding peer stocks using business description.
+author:
+  - name: Rahul 
+    url: https://r2rahul.github.io
+    affiliation: Quantitative Analyst
+    affiliation_url: https://r2rahul.github.io
+    orcid_id: 0000-0002-0144-1022 
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
+
