@@ -1,7 +1,7 @@
 ---
-title: "Finding Stock Cohorts by applying text clustering on Business Descriptions of securities"
+title: "Finding peer stocks using business description"
 description: |
-  This article looks at finding peer stocks using business description.
+  This article looks at finding stock peers by applying text clustering on business descriptions of securities.
 author:
   - name: Rahul 
     url: https://r2rahul.github.io
@@ -9,18 +9,26 @@ author:
     affiliation_url: https://r2rahul.github.io
     orcid_id: 0000-0002-0144-1022 
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web. 
+# Introduction
+Traditional method to find stock peers is to look into other stocks in same sector. The current market environment of high connected value chain, specialized patented products, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. We identified non-sector peers [placeholder], using the method. 
 
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+In the report is organized in three sections. First we describe the methodology.  Second results. Finally, conclusions and next steps
 
+# Methods
+We used Yahoo finance to pull the business description and we used EuroStoxx 50 as a universe. For the technology we used python and for workflow management we used [MLflow](https://www.mlflow.org/). The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
 
+# Results
 
+# Conclusion
 
+In this report we described the methodology of finding peers through business description. However, the results are limited by input data, the method can yield far detailed result using commercial data vendors like [Refinitiv](https://www.refinitiv.com/en) and using business descriptions from Annual reports.  
 
