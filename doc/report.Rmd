@@ -9,6 +9,7 @@ author:
     affiliation_url: https://r2rahul.github.io
     orcid_id: 0000-0002-0144-1022 
 date: "`r Sys.Date()`"
+bibliography: biblio.bib
 output:
   distill::distill_article:
     toc: true
@@ -24,7 +25,7 @@ Traditional method to find stock peers is to look into other stocks in same sect
 In the report is organized in three sections. First we describe the methodology.  Second results. Finally, conclusions and next steps
 
 # Methods
-We used Yahoo finance to pull the business description and we used EuroStoxx 50 as a universe. For the technology we used python and for workflow management we used [MLflow](https://www.mlflow.org/). The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
+We used Yahoo finance to pull the business description and we used EuroStoxx 50 [@stoxx50] as a universe. For the technology we used python and for workflow management [@scikit, @textblob] we used [MLflow](https://www.mlflow.org/) [@mlflow]. The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
 
 # Results
 
