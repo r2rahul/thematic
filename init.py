@@ -16,6 +16,16 @@ data = data.loc[:, ["symbol", "longBusinessSummary", "sector", "industry", "coun
 data["business_desc"] = data.longBusinessSummary.apply(clean_text)
 # %%
 text = " ".join(data.business_desc.tolist())
+text = " ".join(w for w in text.split() if w != "company")
+text_nclean = " ".join(data.longBusinessSummary.tolist())
 # %%
 create_wordcloud(text)
+# %%
+create_wordcloud(text_nclean, "data/wc_notclean.png")
+# %%
+X = data.business_desc.tolist()
+textfile = open("data/text_data.txt", "w")
+for element in X:
+    textfile.write(element + "\n")
+textfile.close()
 # %%

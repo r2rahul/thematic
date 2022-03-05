@@ -63,6 +63,8 @@ def clean_text(text):
                     if w.lower() in words \
                     and w.lower() not in stop_words \
                     and len(w.lower()) > 2)
+    out = " ".join(w for w in out.split() if w not in  ["company", "compani"])
+    out = out.strip().replace("\s+", "\s")
     # Next lemmatize the text
     try:
         out = lemmatizer.lemmatize(out, pos = "a") 
@@ -72,13 +74,14 @@ def clean_text(text):
         out = None
     return(out)
 
-def create_wordcloud(text, fname = "data/wc.png"):
+def create_wordcloud(text, fname = "data/wc.png", show = False):
     wordcloud = WordCloud(background_color = 'white').generate(text)
     wordcloud.to_file(fname)
     # Display the generated image:
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis("off")
-    plt.show()
+    if show:
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.show()
     return(fname)
 
 def get_analysis(data, data_store):
@@ -87,25 +90,27 @@ def get_analysis(data, data_store):
     with pd.HDFStore(data_store) as store:
         store.put("analysis", data)
     return(data)
-# %%
-text = " ".join(data.business_desc.tolist())
-# %%
-create_wordcloud(text)
 #%%   
 @click.command(
     help='''Provide the data director like data/
     the code will write a data in the data director with
     thematic[timestamp].h5'''
 )
-@click.option("--path-hdf", default = "data/", help = "relative path to current working directory")
-@click.option("--path-wc", default = "data/wc.png", help = "relative path for wordcloud file")
-def run_etl(path_hdf, path_wc):
-    store_path = path_hdf
+@click.option("--path-files", default = "data/", help = "relative path to current working directory")
+def run_etl(path_files):
+    store_path = path_files
     curr_store = get_stoxx50(store_path)
     df = get_bus_desc(curr_store)
     data = get_analysis(df, curr_store)
-    ext = " ".join(data.business_desc.tolist())
-    create_wordcloud(text, path_wc)
+    # Generate Word Cloud
+    text = " ".join(data.business_desc.tolist())
+    text = " ".join(w for w in text.split() if w != "company")
+    text_nclean = " ".join(data.longBusinessSummary.tolist())
+    tstamp = pd.Timestamp.now().strftime("%Y%m%d")
+    path_wc_clean = path_files + "wc_clean" + tstamp + ".png"
+    path_wc_nclean = path_files + "wc_nclean" + tstamp + ".png"
+    create_wordcloud(text, path_wc_clean)
+    create_wordcloud(text_nclean, path_wc_nclean)
     return None
 
 if __name__ == "__main__":

@@ -9,9 +9,80 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import Normalizer
 from sklearn import metrics
-from sklearn.cluster import KMeans, MiniBatchKMeans
+from sklearn.cluster import AgglomerativeClustering
+from matplotlib import pyplot as plt
+from scipy.cluster.hierarchy import dendrogram
 import logging
 import sys
 from time import time
+import click
 # Display progress logs on stdout
 logging.basicConfig(filename='logs/model.log', level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+#%%
+def plot_dendrogram(model, **kwargs):
+    '''
+    Function adapted from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html#sphx-glr-auto-examples-cluster-plot-agglomerative-dendrogram-py
+    '''
+    # Create linkage matrix and then plot the dendrogram
+
+    # create the counts of samples under each node
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack(
+        [model.children_, model.distances_, counts]
+    ).astype(float)
+
+    # Plot the corresponding dendrogram
+    plt.figure(facecolor = 'white')
+    plt.figure(figsize = (20, 40), dpi = 100)
+    dendrogram(linkage_matrix, **kwargs)
+    plt.title("Business Description Dendogram")        
+    plt.xlabel("Ticker Symbols")        
+    plt.axis("off")
+    #get current axes
+    ax = plt.gca()
+    #hide x-axis
+    ax.get_xaxis().set_visible(False)
+    #hide y-axis 
+    ax.get_yaxis().set_visible(False)
+    ax.set_facecolor("white")
+    plt.savefig("data/dendrogram.png")
+    return None
+
+def get_model(data):
+    X = data.business_desc.tolist()
+    hasher = HashingVectorizer(lowercase = False)
+    vectorizer = make_pipeline(hasher, TfidfTransformer())
+    X2 = vectorizer.fit_transform(X)
+    # setting distance_threshold=0 ensures we compute the full tree.
+    model = AgglomerativeClustering(distance_threshold = 0, n_clusters = None,\
+        affinity = "l1", linkage = "average")
+    model = model.fit(X2.toarray())
+    return(model)
+
+#%%   
+@click.command(
+    help='''Provide the data path'''
+)
+@click.option("--path-data", default = "data/thematic_20220305.h5", help = "relative path to the data")
+def run_model(data_store):
+    with pd.HDFStore(data_store) as store:
+        data = store["analysis"]
+    model = get_model(data)
+    # Visualize the figure
+    labels = data.symbol.tolist()    
+    plot_dendrogram(model, labels = labels,\
+        orientation = "left", leaf_rotation = 0)
+    return None
+# %%
+if __name__ == "__main__":
+    run_model()
