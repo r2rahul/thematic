@@ -65,7 +65,7 @@ def get_model(data):
 @click.command(
     help='''Provide the data path'''
 )
-@click.option("--path-data", default = "data/thematic_20220305.h5", help = "relative path to the data")
+@click.option("--path-data", default = "data/thematic_20220306.h5", help = "relative path to the data")
 def run_model(data_store):
     with pd.HDFStore(data_store) as store:
         data = store["analysis"]

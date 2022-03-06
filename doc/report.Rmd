@@ -9,7 +9,7 @@ author:
     affiliation_url: https://r2rahul.github.io
     orcid_id: 0000-0002-0144-1022 
 date: "`r Sys.Date()`"
-citation_url: https://rstudio.github.io/distill
+citation_url: https://rpubs.com/r2rahul/874302
 slug: rahul2022
 bibliography: biblio.bib
 repository_url: https://github.com/r2rahul/thematic
