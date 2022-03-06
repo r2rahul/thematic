@@ -58,20 +58,23 @@ def get_bus_desc(data_store):
         store.put("desc", out)
     return(out)
 #%%
-def clean_text(text):    
-    out = " ".join(w for w in nltk.wordpunct_tokenize(text) \
+def clean_text(text):
+    try:
+        out = " ".join(w for w in nltk.wordpunct_tokenize(text) \
                     if w.lower() in words \
                     and w.lower() not in stop_words \
                     and len(w.lower()) > 2)
-    out = " ".join(w for w in out.split() if w not in  ["company", "compani"])
-    out = out.strip().replace("\s+", "\s")
+        out = out.strip().replace("\s+", "\s")
+    except Exception as e:
+        logging.debug("Could not lemmatize or stem {}".format(e))
+        out = ""
     # Next lemmatize the text
     try:
         out = lemmatizer.lemmatize(out, pos = "a") 
         out = stem_word.stem(out)
     except Exception as e:
         logging.debug("Could not lemmatize or stem {}".format(e))
-        out = None
+        out = ""
     return(out)
 
 def create_wordcloud(text, fname = "data/wc.png", show = False):
@@ -85,6 +88,7 @@ def create_wordcloud(text, fname = "data/wc.png", show = False):
     return(fname)
 
 def get_analysis(data, data_store):
+    data = data.dropna(subset=["symbol"])
     data = data.loc[:, ["symbol", "longBusinessSummary", "sector", "industry", "country"]]
     data["business_desc"] = data.longBusinessSummary.apply(clean_text)
     with pd.HDFStore(data_store) as store:
@@ -97,7 +101,8 @@ def get_analysis(data, data_store):
     thematic[timestamp].h5'''
 )
 @click.option("--path-files", default = "data/", help = "relative path to current working directory")
-def run_etl(path_files):
+@click.option("--path-figs", default = "doc/figs/", help = "relative path to store figures")
+def run_etl(path_files, path_figs):
     store_path = path_files
     curr_store = get_stoxx50(store_path)
     df = get_bus_desc(curr_store)
@@ -107,8 +112,8 @@ def run_etl(path_files):
     text = " ".join(w for w in text.split() if w != "company")
     text_nclean = " ".join(data.longBusinessSummary.tolist())
     tstamp = pd.Timestamp.now().strftime("%Y%m%d")
-    path_wc_clean = path_files + "wc_clean" + tstamp + ".png"
-    path_wc_nclean = path_files + "wc_nclean" + tstamp + ".png"
+    path_wc_clean = path_figs + "wc_clean" + tstamp + ".png"
+    path_wc_nclean = path_figs + "wc_nclean" + tstamp + ".png"
     create_wordcloud(text, path_wc_clean)
     create_wordcloud(text_nclean, path_wc_nclean)
     return None

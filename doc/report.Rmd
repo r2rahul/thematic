@@ -20,7 +20,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 # Introduction
@@ -37,12 +37,40 @@ For the technology we used python and for workflow management [@scikit, @textblo
 
 Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B in figure 1 shows the word frequency of business description without customized data cleaning, which removes non-informative words like company. 
 
-```{r fig1, fig.cap="Wordcloud comparison showing effect of customized data cleaning"}
+```{r fig1, layout = "l-body-outset", fig.cap="Wordcloud comparison showing effect of customized data cleaning"}
 knitr::include_graphics("figs/g6774.png")
 ```
 
  
 # Results
+
+```{r dendo, layout = "l-body-outset", fig.cap = "The figure shows the final cluster groups based on the business description"}
+knitr::include_graphics("figs/dendrogram.png")
+```
+
+
+```{r wc1}
+library(tidyverse)
+library(glue)
+library(quanteda)
+library(quanteda.textplots)
+df <- read_csv("../data/forreport.csv")
+corp <- corpus(df, text_field = "business_desc")
+```
+
+```{r wc, layout = "l-body-outset", fig.cap = "The wordcloud showing comparison of words in cluster in red"}
+corp %>%
+    tokens(remove_punct = TRUE) %>%
+    dfm() %>%
+    dfm_group(groups = sector) %>%
+    dfm_trim(verbose = FALSE) %>%
+    textplot_wordcloud(comparison = TRUE,
+                       min_size = 1,
+                       max_size = 6,
+                       min_count = 1, 
+                       color = c('#a6cee3','#1f78b4','#b2df8a','#33a02c'))
+```
+
 
 # Conclusion
 

@@ -43,19 +43,11 @@ def plot_dendrogram(model, **kwargs):
 
     # Plot the corresponding dendrogram
     plt.figure(facecolor = 'white')
-    plt.figure(figsize = (20, 40), dpi = 100)
+    plt.figure(figsize = (40, 30), dpi = 100)
     dendrogram(linkage_matrix, **kwargs)
     plt.title("Business Description Dendogram")        
-    plt.xlabel("Ticker Symbols")        
-    plt.axis("off")
-    #get current axes
-    ax = plt.gca()
-    #hide x-axis
-    ax.get_xaxis().set_visible(False)
-    #hide y-axis 
-    ax.get_yaxis().set_visible(False)
-    ax.set_facecolor("white")
-    plt.savefig("data/dendrogram.png")
+    plt.xlabel("Ticker Symbols")
+    plt.savefig("data/dendrogram.svg")
     return None
 
 def get_model(data):
@@ -81,7 +73,7 @@ def run_model(data_store):
     # Visualize the figure
     labels = data.symbol.tolist()    
     plot_dendrogram(model, labels = labels,\
-        orientation = "left", leaf_rotation = 0)
+        orientation = "top", leaf_rotation = 45)
     return None
 # %%
 if __name__ == "__main__":
