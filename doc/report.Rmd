@@ -1,7 +1,7 @@
 ---
 title: "Finding peer stocks using business description"
 description: |
-  This article looks at finding stock peers by applying text clustering on business descriptions of securities.
+  The article demonstrates a method for finding stock peers by text clustering on the business descriptions of securities.
 author:
   - name: Rahul
     url: https://r2rahul.github.io
@@ -32,22 +32,14 @@ In the report is organized in three sections. First we describe the methodology.
 
 Since this is a methodology paper to keep the data size and computation time manageable we used EuroStoxx 50 [@stoxx50] as a universe. Furthermore, the data for this universe is available for all stocks on the Yahoo finance. 
 
-
-<aside>
-```{r fig1, fig.cap="Wordcloud without customized data cleaning"}
-knitr::include_graphics("figs/wc_notclean.png")
-```
-</aside>
-
 For the technology we used python and for workflow management [@scikit, @textblob] we used [MLflow](https://www.mlflow.org/) [@mlflow]. The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
 
-<aside>
-```{r fig2, fig.cap="Wordcloud with customized data cleaning"}
-knitr::include_graphics("figs/wc.png")
-```
-</aside>
 
-Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The figure 1 \@ref(fig:fig2) shows the word frequency of business description without customized data cleaning, which removes non-informative words like company. 
+Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B in figure 1 shows the word frequency of business description without customized data cleaning, which removes non-informative words like company. 
+
+```{r fig1, fig.cap="Wordcloud comparison showing effect of customized data cleaning"}
+knitr::include_graphics("figs/g6774.png")
+```
 
  
 # Results
