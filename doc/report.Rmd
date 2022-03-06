@@ -1,7 +1,7 @@
 ---
-title: "Finding peer stocks using business description"
+title: "Finding peer stocks using business description of a company"
 description: |
-  The article demonstrates a method for finding stock peers by text clustering on the business descriptions of securities.
+  The article demonstrates a method for finding stock peers by natural language processing (NLP) on the business descriptions of a company.
 author:
   - name: Rahul
     url: https://r2rahul.github.io
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 # Introduction
 
-The report outlines an alternative method to find stock peers through natural language processing of business descriptions. The company value chain is highly connected in the current globalized world. The specialized patented products, commodity availability, cost, and similar factors contributing to value-chain connectivity. Therefore, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. The method can be used as an additional method to identify stock peers. 
+The report outlines an alternative method to find stock peers through natural language processing of business descriptions of a company. The company value chain is highly connected in the current globalized world. The specialized patented products, commodity availability, cost, and similar factors contributing to value-chain connectivity. Therefore, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. The method can be used as a complementary method to identify stock peers. 
 
 The report is organized in three sections. The methods section describe the data source, algorithm, and technology used for the analysis. The results section outline the results of the analysis. Finally, conclusion provides the discussion and future work. 
 
@@ -33,7 +33,7 @@ The report is organized in three sections. The methods section describe the data
 
 Since this is a methodology paper to keep the data size and computation time manageable we used EuroStoxx 50 [@stoxx50] as a universe. Furthermore, the data for this universe is available for all stocks on the Yahoo finance [@yahoo]. So, we pulled the data from Yahoo finance using yfinance library [@yfin]. The fields symbol, sector, industry, and longBusinessSummary are used in the analysis. The *longBusinessSummary* is used as input text. 
 
-Next, TF-IDF transformation is used to create features. We decided to choose Hierarchical cluster as a preferred method for the clustering, since the algorithm does not require initial number of cluster as an input parameter. Also, we use `l1` distance measure, since data is very sparse. 
+Next, term frequency–inverse document frequency (TF-IDF) [@tfidf] transformation is used to create features. We decided to choose Hierarchical cluster as a preferred method for the clustering, since the algorithm does not require initial number of cluster as an input parameter. Also, we use `l1` distance measure, since data is very sparse. 
 
 Apart from removing standard stop-words we also removed stop words like *co, ltd, llc*. Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B \@ref(fig:fig1) shows the effect of customized stop-words removal. 
 
