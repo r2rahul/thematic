@@ -3,13 +3,17 @@ title: "Finding peer stocks using business description"
 description: |
   This article looks at finding stock peers by applying text clustering on business descriptions of securities.
 author:
-  - name: Rahul 
+  - name: Rahul
     url: https://r2rahul.github.io
     affiliation: Quantitative Analyst
     affiliation_url: https://r2rahul.github.io
     orcid_id: 0000-0002-0144-1022 
 date: "`r Sys.Date()`"
+citation_url: https://rstudio.github.io/distill
+slug: rahul2022
 bibliography: biblio.bib
+repository_url: https://github.com/r2rahul/thematic
+creative_commons: CC BY
 output:
   distill::distill_article:
     toc: true
@@ -20,13 +24,32 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 # Introduction
-Traditional method to find stock peers is to look into other stocks in same sector. The current market environment of high connected value chain, specialized patented products, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. We identified non-sector peers [placeholder], using the method. 
+The report outlines an alternative method to find stock peers through natural language processing of business descriptions. The current market environment of high connected value chain, specialized patented products, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. The method can be used as additional method to identify peers to looking at sector peers. Traditional method to find stock peers is to look into other stocks in same sector. We identified non-sector peers [placeholder], using the method. 
 
 In the report is organized in three sections. First we describe the methodology.  Second results. Finally, conclusions and next steps
 
 # Methods
-We used Yahoo finance to pull the business description and we used EuroStoxx 50 [@stoxx50] as a universe. For the technology we used python and for workflow management [@scikit, @textblob] we used [MLflow](https://www.mlflow.org/) [@mlflow]. The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
 
+Since this is a methodology paper to keep the data size and computation time manageable we used EuroStoxx 50 [@stoxx50] as a universe. Furthermore, the data for this universe is available for all stocks on the Yahoo finance. 
+
+
+<aside>
+```{r fig1, fig.cap="Wordcloud without customized data cleaning"}
+knitr::include_graphics("figs/wc_notclean.png")
+```
+</aside>
+
+For the technology we used python and for workflow management [@scikit, @textblob] we used [MLflow](https://www.mlflow.org/) [@mlflow]. The code is available on Github [https://github.com/thematic.git](https://github.com/thematic.git). 
+
+<aside>
+```{r fig2, fig.cap="Wordcloud with customized data cleaning"}
+knitr::include_graphics("figs/wc.png")
+```
+</aside>
+
+Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The figure 1 \@ref(fig:fig2) shows the word frequency of business description without customized data cleaning, which removes non-informative words like company. 
+
+ 
 # Results
 
 # Conclusion
