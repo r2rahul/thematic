@@ -14,7 +14,7 @@ rule etl:
 
 rule model:
     input:
-        data_store="data/thematic_20220306.h5",
+        data_store="data/thematic.h5",
         fig_name="data/dendrogram.svg",
         wc_data="data/forreport.csv",
     output:
