@@ -1,9 +1,9 @@
-name: thematic-example
+name: thematic
 conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      inverse_method: {type: str, default: 'pinv'}
+      data_store: {type: str, default: 'data/thematic_20220306.h5'}
     command: |
-        python thematic_main.py \
-          --inverse-method={inverse_method}
+        python py/model.py \
+          --path-data={data_store}

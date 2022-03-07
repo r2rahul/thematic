@@ -8,7 +8,7 @@ The repository is the analysis repository for the case study [Finding peer stock
  2. Step 2: Step 1 will create a time stamped data file in the data directory (example data is given in data directory) ``` python py/model.py --path-data "data/thematic_20220306.h5""```
    
 ### SnakeMake
-[Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) user can just type in ```snakemake``` from command shell.
+[Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) user can just type in ```snakemake --cores 1``` from command shell. Please note Rscript and Python should be in path
 
 ### Mlflow
 

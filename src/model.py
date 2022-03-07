@@ -16,6 +16,7 @@ import logging
 import sys
 from time import time
 import click
+import mlflow
 # Display progress logs on stdout
 logging.basicConfig(filename='logs/model.log', level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 #%%
@@ -51,6 +52,7 @@ def plot_dendrogram(model, **kwargs):
     return None
 
 def get_model(data):
+    mlflow.sklearn.autolog()
     X = data.business_desc.tolist()
     hasher = HashingVectorizer(lowercase = False)
     vectorizer = make_pipeline(hasher, TfidfTransformer())
@@ -58,7 +60,9 @@ def get_model(data):
     # setting distance_threshold=0 ensures we compute the full tree.
     model = AgglomerativeClustering(distance_threshold = 0, n_clusters = None,\
         affinity = "l1", linkage = "average")
-    model = model.fit(X2.toarray())
+    with mlflow.start_run() as run:
+        model = model.fit(X2.toarray())
+        print("Logged data and model in run {}".format(run.info.run_id))
     return(model)
 
 #%%   
@@ -66,7 +70,7 @@ def get_model(data):
     help='''Provide the data path'''
 )
 @click.option("--path-data", default = "data/thematic_20220306.h5", help = "relative path to the data")
-def run_model(data_store):
+def main(data_store):
     with pd.HDFStore(data_store) as store:
         data = store["analysis"]
     model = get_model(data)
@@ -77,4 +81,4 @@ def run_model(data_store):
     return None
 # %%
 if __name__ == "__main__":
-    run_model()
+    main()
