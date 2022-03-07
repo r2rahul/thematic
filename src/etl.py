@@ -26,8 +26,8 @@ stop_words + add_stop
 #%%
 def get_stoxx50(data_path):
     url = "https://en.wikipedia.org/wiki/EURO_STOXX_50"
-    tstamp = pd.Timestamp.now().strftime("%Y%m%d")
-    data_store = data_path + "thematic_" + tstamp + ".h5"
+    #tstamp = pd.Timestamp.now().strftime("%Y%m%d")
+    data_store = data_path + "thematic_" + ".h5"
     response = requests.get(url)
     if response.status_code == 200:
         all_tables = pd.read_html(response.text)
@@ -111,9 +111,8 @@ def run_etl(path_files, path_figs):
     text = " ".join(data.business_desc.tolist())
     text = " ".join(w for w in text.split() if w != "company")
     text_nclean = " ".join(data.longBusinessSummary.tolist())
-    tstamp = pd.Timestamp.now().strftime("%Y%m%d")
-    path_wc_clean = path_figs + "wc_clean" + tstamp + ".png"
-    path_wc_nclean = path_figs + "wc_nclean" + tstamp + ".png"
+    path_wc_clean = path_figs + "wc_clean" + ".png"
+    path_wc_nclean = path_figs + "wc_nclean" + ".png"
     create_wordcloud(text, path_wc_clean)
     create_wordcloud(text_nclean, path_wc_nclean)
     return None

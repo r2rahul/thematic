@@ -3,7 +3,7 @@ conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      data_store: {type: str, default: 'data/thematic_20220306.h5'}
+      data_store: {type: str, default: 'data/thematic.h5'}
     command: |
         python py/model.py \
           --path-data={data_store}

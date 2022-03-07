@@ -20,7 +20,7 @@ import mlflow
 # Display progress logs on stdout
 logging.basicConfig(filename='logs/model.log', level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 #%%
-def plot_dendrogram(model, **kwargs):
+def plot_dendrogram(model, fname, **kwargs):
     '''
     Function adapted from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html#sphx-glr-auto-examples-cluster-plot-agglomerative-dendrogram-py
     '''
@@ -48,7 +48,7 @@ def plot_dendrogram(model, **kwargs):
     dendrogram(linkage_matrix, **kwargs)
     plt.title("Business Description Dendogram")        
     plt.xlabel("Ticker Symbols")
-    plt.savefig("data/dendrogram.svg")
+    plt.savefig(fname)
     return None
 
 def get_model(data):
@@ -69,15 +69,20 @@ def get_model(data):
 @click.command(
     help='''Provide the data path'''
 )
-@click.option("--path-data", default = "data/thematic_20220306.h5", help = "relative path to the data")
-def main(data_store):
+@click.option("--path-data", default = "data/thematic.h5", help = "relative path to the data")
+@click.option("--fig-name", default = "data/dendrogram.svg", help = "relative path to the dendrogram")
+@click.option("--wc-data", default = "data/forreport.csv", help = "relative path to the word cloud file")
+def main(data_store, fig_name, wc_data):
     with pd.HDFStore(data_store) as store:
         data = store["analysis"]
     model = get_model(data)
     # Visualize the figure
-    labels = data.symbol.tolist()    
-    plot_dendrogram(model, labels = labels,\
+    labels = data.symbol.tolist()
+    plot_dendrogram(model, fig_name, labels = labels,\
         orientation = "top", leaf_rotation = 45)
+    #For word cloud
+    forwc = data.loc[data.symbol.isin(["DG.PA", "RI.PA", "ABI.BR", "CS.PA"])]
+    forwc.to_csv(wc_data, index = False)
     return None
 # %%
 if __name__ == "__main__":

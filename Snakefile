@@ -5,30 +5,32 @@ rule all:
 
 rule etl:
     input:
-        "data/"
-        "doc/figs"
+        path_files="data/",
+        path_figs="doc/figs"
     output:
         "data/thematic.h5"
     script:
-        "src/etl.py"
+        "src/etl.py --path-files {input.path_files} --path-figs {input.path_figs}"
 
 rule model:
     input:
-        "data/thematic.h5"
+        data_store="data/thematic_20220306.h5",
+        fig_name="data/dendrogram.svg",
+        wc_data="data/forreport.csv",
     output:
         "data/dendrogram.svg"
         "data/forreport.csv"
     script:
-        "src/model.py"
+        "src/model.py --path-data {input.data_store} --fig-name {input.fig_name} --wc-data {input.wc_data}"
 
 rule report:
     input:
-        "data/dendrogram.svg"
-        "data/forreport.csv"
+        "data/dendrogram.svg",
+        "data/forreport.csv",
     output:
         "doc/report.html"
     shell:
-        Rscript.exe "doc/run_report.R"
+        "Rscript.exe run_report.r"
 
 onsuccess:
     print("Workflow finished, no error")
