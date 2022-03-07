@@ -17,6 +17,7 @@ import sys
 from time import time
 import click
 import mlflow
+#%%
 # Display progress logs on stdout
 logging.basicConfig(filename='logs/model.log', level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 #%%
