@@ -31,23 +31,23 @@ The report is organized in three sections. The methods section describe the data
 
 # Methods
 
-Since this is a methodology paper to keep the data size and computation time manageable we used EuroStoxx 50 [@stoxx50] as a universe. Furthermore, the data for this universe is available for all stocks on the Yahoo finance [@yahoo]. So, we pulled the data from Yahoo finance using yfinance library [@yfin]. The fields symbol, sector, industry, and longBusinessSummary are used in the analysis. The *longBusinessSummary* is used as input text. 
+Since this is a methodology paper to keep the data size and computation time manageable I used EuroStoxx 50 [@stoxx50] as a universe. Furthermore, the data for this universe is available for all stocks on the Yahoo finance [@yahoo]. So, I pulled the data from Yahoo finance using yfinance library [@yfin]. The fields symbol, sector, industry, and longBusinessSummary are used in the analysis. The *longBusinessSummary* is used as input text. 
 
-Next, term frequency–inverse document frequency (TF-IDF) [@tfidf] transformation is used to create features. We decided to choose Hierarchical cluster as a preferred method for the clustering, since the algorithm does not require initial number of cluster as an input parameter. Also, we use `l1` distance measure, since data is very sparse. 
+Next, term frequency–inverse document frequency (TF-IDF) [@tfidf] transformation is used to create features. I decided to choose Hierarchical cluster as a preferred method for the clustering, since the algorithm does not require initial number of cluster as an input parameter. Also, I use `l1` distance measure, since data is very sparse. 
 
-Apart from removing standard stop-words we also removed stop words like *co, ltd, llc*. Next, we demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B \@ref(fig:fig1) shows the effect of customized stop-words removal. 
+Apart from removing standard stop-words I also removed stop words like *co, ltd, llc*. Next, I demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B \@ref(fig:fig1) shows the effect of customized stop-words removal. 
 
 ```{r fig1, layout = "l-body-outset", fig.cap="Wordcloud comparison showing effect of customized data cleaning"}
 knitr::include_graphics("figs/g6774.png")
 ```
 
-For the technology we used python data science stack [@scikit, @textblob, @nltk]. Besides, we used [MLflow](https://www.mlflow.org/) [@mlflow] and Snakemake [@smake] for workflow management. The source code is available on Github [https://github.com/thematic](https://github.com/thematic). 
+For the technology I used python data science stack [@scikit, @textblob, @nltk]. Besides, I used [MLflow](https://www.mlflow.org/) [@mlflow] and Snakemake [@smake] for workflow management. The source code is available on Github [https://github.com/thematic](https://github.com/thematic). 
 
 
  
 # Results
 
-In the section we present two results from the analysis. First, we show the hierarchical cluster dendrogram. Given, the text is very sparse, still the cluster is able to capture sector level homogeneity. If we cut the tree around 30, we get 10 clusters, which is close to 11 sector classification available in the universe. In addition, the distribution of sector is also skewed in the universe with Financial Services and consumer cyclical are most represented, while Real Estate is list represented. 
+In the section I present two results from the analysis. First, I show the hierarchical cluster dendrogram. Given, the text is very sparse, still the cluster is able to capture sector level homogeneity. If I cut the tree around 30, I get 10 clusters, which is close to 11 sector classification available in the universe. In addition, the distribution of sector is also skewed in the universe with Financial Services and consumer cyclical are most represented, while Real Estate is list represented. 
 
 ```{r dendo, layout = "l-body-outset", fig.cap = "The figure shows the final cluster groups based on the business description"}
 knitr::include_graphics("figs/dendrogram.png")
@@ -81,7 +81,7 @@ corp %>%
 
 # Conclusion
 
-In this report we described the methodology of finding peers through business description and natural language processing. We demonstrated the methodology by mining the public information through Yahoo finance [@yahoo] and using hierarchical cluster to identify clusters based on business descriptions. The method is able to find homogeneous cluster with non-intuitive peers based on the business words. 
+In this report I described the methodology of finding peers through business description and natural language processing. I demonstrated the methodology by mining the public information through Yahoo finance [@yahoo] and using hierarchical cluster to identify clusters based on business descriptions. The method is able to find homogeneous cluster with non-intuitive peers based on the business words. 
 
 The method provides two important knobs to tweak, when working on actual data provided by commercial data vendors and texts from annual reports. First, input data the description can be more detailed as mentioned in the annual reports. The large corpus will need more careful feature engineering, like log transformation to represent all words meaningfully. Second, hyper-parameter tuning of the cluster algorithm. Since, the algorithm is very sensitive to choice of distance and linkage method, a more detailed training will be required. The report outlines an important method for finding non-intuitive peer stocks, in addition to sector peers using natural language processing. 
 
