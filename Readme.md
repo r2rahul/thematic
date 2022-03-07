@@ -1,5 +1,5 @@
 # Introduction
-The repository is the analysis repository for the case study [Finding peer stocks using business description of a company](https://rpubs.com/r2rahul/874302)
+The repository is the code repository for the case study [Finding peer stocks using business description of a company](https://rpubs.com/r2rahul/874302)
 
 # Executing the code
  There are three ways to execute the code. 
