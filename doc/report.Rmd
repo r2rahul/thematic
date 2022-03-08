@@ -47,7 +47,7 @@ For the technology I used python data science stack [@scikit, @textblob, @nltk].
  
 # Results
 
-In the section I present two results from the analysis. First, I show the hierarchical cluster dendrogram. Given, the text is very sparse, still the cluster is able to capture sector level homogeneity. If I cut the tree around 30, I get 10 clusters, which is close to 11 sector classification available in the universe. In addition, the distribution of sector is also skewed in the universe with Financial Services and consumer cyclical are most represented, while Real Estate is list represented. 
+In the section I present two results from the analysis. First, I show the hierarchical cluster dendrogram. Given, the text is very sparse, still the cluster is able to capture sector level homogeneity. If I cut the tree around 30, I get 10 clusters, which is close to 11 sector classification available in the universe. In addition, the distribution of sector is also skewed in the universe with Financial Services and consumer cyclical are most represented, while Real Estate is least represented. 
 
 ```{r dendo, layout = "l-body-outset", fig.cap = "The figure shows the final cluster groups based on the business description"}
 knitr::include_graphics("figs/dendrogram.png")
@@ -75,7 +75,8 @@ corp %>%
                        min_size = 1,
                        max_size = 6,
                        min_count = 1, 
-                       color = c('#a6cee3','#1f78b4','#b2df8a','#33a02c'))
+                       color = c('#a6cee3','#1f78b4',
+                        '#b2df8a','#33a02c'))
 ```
 
 

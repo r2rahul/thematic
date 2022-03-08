@@ -27,7 +27,7 @@ stop_words + add_stop
 def get_stoxx50(data_path):
     url = "https://en.wikipedia.org/wiki/EURO_STOXX_50"
     #tstamp = pd.Timestamp.now().strftime("%Y%m%d")
-    data_store = data_path + "thematic_" + ".h5"
+    data_store = data_path + "thematic" + ".h5"
     response = requests.get(url)
     if response.status_code == 200:
         all_tables = pd.read_html(response.text)

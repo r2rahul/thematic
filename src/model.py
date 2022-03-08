@@ -73,8 +73,8 @@ def get_model(data):
 @click.option("--path-data", default = "data/thematic.h5", help = "relative path to the data")
 @click.option("--fig-name", default = "data/dendrogram.svg", help = "relative path to the dendrogram")
 @click.option("--wc-data", default = "data/forreport.csv", help = "relative path to the word cloud file")
-def main(data_store, fig_name, wc_data):
-    with pd.HDFStore(data_store) as store:
+def run_model(path_data, fig_name, wc_data):
+    with pd.HDFStore(path_data) as store:
         data = store["analysis"]
     model = get_model(data)
     # Visualize the figure
@@ -84,7 +84,8 @@ def main(data_store, fig_name, wc_data):
     #For word cloud
     forwc = data.loc[data.symbol.isin(["DG.PA", "RI.PA", "ABI.BR", "CS.PA"])]
     forwc.to_csv(wc_data, index = False)
-    return None
+    return model
 # %%
 if __name__ == "__main__":
-    main()
+    model = run_model()
+    
