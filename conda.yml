@@ -23,3 +23,9 @@ dependencies:
       - random
       - wordcloud>=1.8.0
       - requests>=2.23.0
+      - cloudpickle==2.0.0
+      - typing-extensions==3.10.0.2
+      - argparse==1.4.0
+      - lz4==3.1.3
+      - psutil==5.8.0
+      
