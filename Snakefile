@@ -15,7 +15,7 @@ rule etl:
         "data/thematic.h5",
     shell:
         "python {input.script} --path-files {input.path_files} --path-figs {input.path_figs}"
-        
+
 
 rule model:
     input:
@@ -28,16 +28,17 @@ rule model:
         "data/forreport.csv",
     shell:
         "python {input.script} --path-data {input.data_store} --fig-name {input.fig_name} --wc-data {input.wc_data}"
-        
+
 
 rule report:
     input:
-        "data/dendrogram.svg",
-        "data/forreport.csv",
+        script = "run_report.r",
+        fig_path = "data/dendrogram.svg",
+        wc_path = "data/forreport.csv",
     output:
         "doc/report.html",
     shell:
-        "Rscript.exe run_report.r"
+        "Rscript.exe {input.script}"
 
 
 onsuccess:
