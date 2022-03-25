@@ -35,13 +35,13 @@ Since this is a methodology paper to keep the data size and computation time man
 
 Next, term frequency–inverse document frequency (TF-IDF) [@tfidf] transformation is used to create features. I decided to choose Hierarchical cluster as a preferred method for the clustering, since the algorithm does not require initial number of cluster as an input parameter. Also, I use `l1` distance measure, since data is very sparse. 
 
-Apart from removing standard stop-words I also removed stop words like *co, ltd, llc*. Next, I demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure 1 \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B \@ref(fig:fig1) shows the effect of customized stop-words removal. 
+Apart from removing standard stop-words I also removed stop words like *co, ltd, llc*. Next, I demonstrate the effect of customized data cleaning on the business descriptions through word cloud. The panel A in figure \@ref(fig:fig1) shows the word frequency of business description without customized data cleaning. The panel B \@ref(fig:fig1) shows the effect of customized stop-words removal. 
 
 ```{r fig1, layout = "l-body-outset", fig.cap="Wordcloud comparison showing effect of customized data cleaning"}
 knitr::include_graphics("figs/g6774.png")
 ```
 
-For the technology I used python data science stack [@scikit, @textblob, @nltk]. Besides, I used [MLflow](https://www.mlflow.org/) [@mlflow] and Snakemake [@smake] for workflow management. The source code is available on Github [https://github.com/thematic](https://github.com/thematic). 
+For the technology I used python data science stack [@scikit, @textblob, @nltk]. Besides, I used [MLflow](https://www.mlflow.org/) [@mlflow] and Snakemake [@smake] for workflow management. The source code is available on Github [https://github.com/r2rahul/thematic](https://github.com/r2rahul/thematic). 
 
 
  
