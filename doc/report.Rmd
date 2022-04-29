@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 # Introduction
 
-The report outlines an alternative method to find stock peers through natural language processing of business descriptions of a company. The company value chain is highly connected in the current globalized world. The specialized patented products, commodity availability, cost, and similar factors contributing to value-chain connectivity. Therefore, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers using text clustering using business description. The method can be used as a complementary method to identify stock peers. 
+The report outlines an alternative method to find stock peers through natural language processing of business descriptions of a company. The company value chain is highly connected in the current globalized world. The specialized patented products, commodity availability, cost, and similar factors contributing to value-chain connectivity. Therefore, looking into same sector peers won't give the whole picture. The report describes the novel method to find peers by applying text clustering on the business description. The method can be used as a complementary method to identify stock peers. 
 
 The report is organized in three sections. The methods section describe the data source, algorithm, and technology used for the analysis. The results section outline the results of the analysis. Finally, conclusion provides the discussion and future work. 
 
