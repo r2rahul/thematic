@@ -17,6 +17,7 @@ creative_commons: CC BY
 output:
   distill::distill_article:
     toc: true
+knit: pagedown::chrome_print
 ---
 
 ```{r setup, include=FALSE}
